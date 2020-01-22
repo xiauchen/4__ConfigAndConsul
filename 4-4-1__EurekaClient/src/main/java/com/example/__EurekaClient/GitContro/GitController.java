@@ -1,7 +1,5 @@
-package com.example.__EurekaClient;
+package com.example.__EurekaClient.GitContro;
 
-import com.example.__EurekaClient.GitAutoRefreshConfig;
-import com.example.__EurekaClient.GitConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;

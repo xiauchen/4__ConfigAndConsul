@@ -1,4 +1,4 @@
-package com.example.__EurekaClient;
+package com.example.__EurekaClient.GitContro;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

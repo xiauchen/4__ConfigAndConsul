@@ -1,4 +1,4 @@
-package com.example.__EurekaClient;
+package com.example.__RabbitHello;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,15 +19,9 @@ public class ConfigController {
     @Value("${bar}")
     String bar;
 
-    @Value("${eureka.instance.metadata-map.Loadblance}")
-    String loadbalance;
 
     @RequestMapping(value = "/foo")
     public String foo(){
         return foo + "——" + bar;
-    }
-    @RequestMapping(value = "/matadata")
-    public String matadata(){
-        return loadbalance;
     }
 }

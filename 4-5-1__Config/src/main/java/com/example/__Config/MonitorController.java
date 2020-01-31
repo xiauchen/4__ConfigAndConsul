@@ -1,9 +1,6 @@
 package com.example.__Config;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 @RestController
 public class MonitorController {
@@ -44,4 +47,30 @@ public class MonitorController {
                     request, String.class);
         }
     }
+    @RequestMapping(value = "/monitorrs")
+    @ResponseBody
+    public Mono<String> monitorrs(@RequestParam(value = "path", defaultValue = "*") String pathName) throws InterruptedException {
+            WebClient webClient = WebClient.builder()
+                    .baseUrl("http://localhost:8889")
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
+                    .build();
+            MultiValueMap<String, String> formData = new LinkedMultiValueMap<>(1);
+            formData.add("path", pathName);
+            return webClient.method(HttpMethod.POST).uri("/monitor")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    .body(BodyInserters.fromFormData(formData))
+                    .retrieve()
+                    .bodyToMono(String.class);
+//            Mono<String> response = webClient.method(HttpMethod.POST).uri("/monitor")
+//                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                    .body(BodyInserters.fromFormData(formData))
+//                    .retrieve()
+//                    .bodyToMono(String.class).timeout(Duration.of(16, ChronoUnit.SECONDS));
+//            Thread.sleep(5000);
+//            return HttpStatus.OK;
+//            return response;
+//            String data = response.block();
+//            System.out.println("WebPostDemo result----- " + data);
+    }
 }
+

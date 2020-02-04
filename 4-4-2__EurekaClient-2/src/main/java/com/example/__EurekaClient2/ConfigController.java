@@ -1,4 +1,4 @@
-package com.example.__EurekaClient;
+package com.example.__EurekaClient2;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -27,7 +27,7 @@ public class MonitorController {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add(HttpHeaders.CONTENT_TYPE, "application/json");
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, httpHeaders);
-            ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://localhost:8889/actuator/bus-refresh",
+            ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://localhost:21000/actuator/bus-refresh",
                     request, String.class);
         }
     }
@@ -43,7 +43,7 @@ public class MonitorController {
             MultiValueMap<String, String> varParams= new LinkedMultiValueMap<String, String>();
             varParams.add("path", pathName);
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(varParams, httpHeaders);
-            ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://localhost:8889/monitor",
+            ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://localhost:21000/monitor",
                     request, String.class);
         }
     }
@@ -51,7 +51,7 @@ public class MonitorController {
     @ResponseBody
     public Mono<String> monitorrs(@RequestParam(value = "path", defaultValue = "*") String pathName) throws InterruptedException {
             WebClient webClient = WebClient.builder()
-                    .baseUrl("http://localhost:8889")
+                    .baseUrl("http://localhost:21000")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
                     .build();
             MultiValueMap<String, String> formData = new LinkedMultiValueMap<>(1);

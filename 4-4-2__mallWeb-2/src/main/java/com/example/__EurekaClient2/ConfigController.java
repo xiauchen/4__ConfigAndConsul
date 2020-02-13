@@ -1,10 +1,13 @@
-package com.example.__EurekaClient;
+package com.example.__EurekaClient2;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,19 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 @RefreshScope
 public class ConfigController {
-    @Value("${foo}")
-    String foo;
+    @Value("${time}")
+    String time;
 
-    @Value("${bar}")
-    String bar;
+    @Value("${food}")
+    String food;
+
+    @Value("${location}")
+    String location;
 
     @Value("${eureka.instance.metadata-map.Loadbalance}")
     String loadbalance;
 
-    @RequestMapping(value = "/foo")
-    public String foo(){
-        return foo + "——" + bar;
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public String test(){
+        String test_string = "酒館營業時間： "+time + "</br>"
+                            + "今日特餐： " + food + "</br>"
+                            + "<font color=\"blue\">" + "酒館地址： " + location;
+        return test_string;
     }
+
     @RequestMapping(value = "/matadata")
     public String matadata(){
         return loadbalance;

@@ -27,8 +27,7 @@ public class MysqlController {
     @RequestMapping(value = "/get-data")
     public String GetData(){
         int id=0;
-        String name="";
-        String url="";
+        String name="",url="";
         Connection conn = null;
         Statement stmt = null;
         try{
@@ -83,8 +82,8 @@ public class MysqlController {
         }
         System.out.println("Goodbye!");
         return "ID: " + id +"<br>"
-                +", 站点名称: " + name+"<br>"
-                +", 站点 URL: " + url+"<br>";
+                +"站点名称: " + name+"<br>"
+                +"站点 URL: " + url+"<br>";
     }
 
 }

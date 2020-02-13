@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @EnableAutoConfiguration
 @RefreshScope
 public class TagFilter extends ZuulFilter {
-    @Value("${loadbalance.enable}")
-    String enable;
-
     @Override
     public String filterType() {
         return "route";
@@ -33,20 +30,25 @@ public class TagFilter extends ZuulFilter {
         return true;
     }
 
+    @Value("${loadbalance.enable}")
+    String enable;
+
     @Override
     public Object run() throws ZuulException {
         double ran = Math.random()*100+1;
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
         String tag = request.getHeader("tag");
-        if(enable.equals("TRUE")){
+        if(enable.equals("80A")){
             if(ran < 80.0){
                 RibbonFilterContextHolder.getCurrentContext().add("Loadbalance", "8A");
             }else{
                 RibbonFilterContextHolder.getCurrentContext().add("Loadbalance", "2B");
             }
-        }else{
+        }else if(enable.equals("100B")){
             RibbonFilterContextHolder.getCurrentContext().add("Loadbalance", "2B");
+        }else{
+            RibbonFilterContextHolder.getCurrentContext().add("Loadbalance", "8A");
         }
         System.out.println(enable);
         return null;
